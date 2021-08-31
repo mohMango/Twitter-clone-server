@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
-import Model from "./user.model.js";
+import { User as Model } from "./user.model.js";
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
@@ -17,14 +17,13 @@ export const login = async (req, res) => {
       return res.status(404).json({ message: "password incorrect" });
 
     const token = jwt.sign(
-      { email: email, id: user._id },
+      { email: email, user_id: user.user_id },
       process.env.SECRET_KEY,
       { expiresIn: "30m" }
     );
 
     res.status(200).json({ result: user, token });
   } catch (err) {
-    console.log(err);
     res.status(500).json({ message: "error" });
   }
 };
@@ -43,21 +42,22 @@ export const register = async (req, res) => {
 
     const bcryptPassword = await bcrypt.hash(password, 12);
 
-    const newUser = await Model.create({
+    await Model.create({
       email: email,
       password: bcryptPassword,
       username: username,
     });
 
+    const newUser = await Model.findOne({ email: email });
+
     const token = jwt.sign(
-      { email: email, id: newUser._id },
+      { email: email, user_id: newUser.user_id },
       process.env.SECRET_KEY,
       { expiresIn: "30m" }
     );
 
     res.status(200).json({ result: newUser, token });
   } catch (err) {
-    console.log(err);
     res.status(500).json({ message: "error" });
   }
 };

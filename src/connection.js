@@ -1,6 +1,6 @@
 import sql from "mysql2/promise";
 
-const connection = async () => {
+export const connection = async () => {
   try {
     const con = await sql.createConnection({
       host: process.env.DB_HOST,
@@ -16,5 +16,3 @@ const connection = async () => {
     return null;
   }
 };
-
-export default connection;

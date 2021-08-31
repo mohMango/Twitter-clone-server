@@ -1,20 +1,20 @@
-import connection from "./../../services/db.service.js";
+import { connection } from "./../../connection.js";
 
-class User {
+export class User {
   constructor(user) {
     this.username = user.username;
     this.email = user.email;
     this.password = user.password;
   }
 
-  static async create(newUser) {
+  static async create(user) {
     try {
       const sql = await connection();
-      const [row, schema] = await sql.query("INSERT INTO users SET ?", newUser);
+      await sql.query("INSERT INTO users SET ?;", user);
       sql.end();
       return true;
     } catch (error) {
-      console.error(error);
+      throw new Error(error);
     }
   }
 
@@ -26,18 +26,14 @@ class User {
       if (user.username) andor = "AND";
 
       const [row, schema] = await sql.query(
-        `SELECT * FROM users WHERE email = ? ${andor} username = ?`,
+        `SELECT * FROM users WHERE email = ? ${andor} username = ?;`,
         [user.email, user.username]
       );
-
-      console.log({ ...row[0] });
 
       sql.end();
       return { ...row[0] };
     } catch (error) {
-      console.error(error);
+      throw new Error(error);
     }
   }
 }
-
-export default User;

@@ -1,7 +1,4 @@
-import * as controller from "./user.controller.js";
-import model from "./user.model.js";
-import routes from "./user.routes.js";
-
-export { controller as userController };
-export { model as userModel };
-export { routes as userRoutes };
+export * as userController from "./user.controller.js";
+export { User } from "./user.model.js";
+export { userRoutes } from "./user.routes.js";
+export { auth } from "./user.middleware.js";
