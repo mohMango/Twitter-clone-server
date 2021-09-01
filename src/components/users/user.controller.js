@@ -61,3 +61,32 @@ export const register = async (req, res) => {
     res.status(500).json({ message: "error" });
   }
 };
+
+export const follow = async (req, res) => {
+  const { id } = req.body;
+  try {
+    const result = await Model.follow({ user_id: req.userId }, { user_id: id });
+    res.status(200).json({ result: result });
+  } catch (error) {
+    res.status(500).json({ message: "error" });
+  }
+};
+
+export const following = async (req, res) => {
+  try {
+    const result = await Model.following({ user_id: req.userId });
+    res.status(200).json({ result: result });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "error" });
+  }
+};
+
+export const followers = async (req, res) => {
+  try {
+    const result = await Model.followers({ user_id: req.userId });
+    res.status(200).json({ result: result });
+  } catch (error) {
+    res.status(500).json({ message: "error" });
+  }
+};
