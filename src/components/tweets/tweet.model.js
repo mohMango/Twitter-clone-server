@@ -31,6 +31,20 @@ export class Tweet {
     }
   }
 
+  static async feed(user) {
+    try {
+      const sql = await connection();
+      const [row, schema] = await sql.query(
+        "SELECT * FROM tweets WHERE user_id = (SELECT following_id FROM follow WHERE user_id = ?) UNION SELECT * FROM tweets WHERE user_id = ? ;",
+        [user.user_id, user.user_id]
+      );
+      sql.end();
+      return { ...row[0] };
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   static async findOne(tweetId) {
     try {
       const sql = await connection();

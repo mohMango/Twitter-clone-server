@@ -19,7 +19,7 @@ export const create = async (req, res) => {
 export const feed = async (req, res) => {
   const userId = req.userId;
   try {
-    const tweets = await Tweet.find(userId);
+    const tweets = await Tweet.feed({ user_id: userId });
     res.status(200).json({ tweets });
   } catch (error) {
     res.status(404).json({ message: error.message });
