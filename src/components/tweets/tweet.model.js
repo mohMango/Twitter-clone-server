@@ -25,7 +25,7 @@ export class Tweet {
         userId
       );
       sql.end();
-      return { ...row[0] };
+      return { ...row };
     } catch (error) {
       throw new Error(error);
     }
@@ -39,7 +39,7 @@ export class Tweet {
         [user.user_id, user.user_id]
       );
       sql.end();
-      return { ...row[0] };
+      return { ...row };
     } catch (error) {
       throw new Error(error);
     }
@@ -53,7 +53,7 @@ export class Tweet {
         tweetId
       );
       sql.end();
-      return { ...row[0] };
+      return { ...row };
     } catch (error) {
       throw new Error(error);
     }
@@ -67,7 +67,7 @@ export class Tweet {
         [tweet.text, tweet.tweet_id]
       );
       sql.end();
-      return { ...row[0] };
+      return { ...row };
     } catch (error) {
       throw new Error(error);
     }
@@ -81,7 +81,7 @@ export class Tweet {
         [user.user_id, tweet.tweet_id]
       );
       sql.end();
-      return { ...row[0] };
+      return { ...row };
     } catch (error) {
       throw new Error(error);
     }
@@ -95,7 +95,7 @@ export class Tweet {
         tweet.tweet_id
       );
       sql.end();
-      return { ...row[0] };
+      return { ...row };
     } catch (error) {
       throw new Error(error);
     }

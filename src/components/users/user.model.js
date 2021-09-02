@@ -31,7 +31,7 @@ export class User {
       );
 
       sql.end();
-      return { ...row[0] };
+      return { ...row };
     } catch (error) {
       throw new Error(error);
     }
@@ -45,7 +45,7 @@ export class User {
         [user.user_id, followingUser.user_id]
       );
       sql.end();
-      return { ...row[0] };
+      return { ...row };
     } catch (error) {
       throw new Error(error);
     }
@@ -59,7 +59,7 @@ export class User {
         [user.user_id]
       );
       sql.end();
-      return { ...row[0] };
+      return { ...row };
     } catch (error) {
       throw new Error(error);
     }
@@ -73,7 +73,7 @@ export class User {
         [followingUser.user_id]
       );
       sql.end();
-      return { ...row[0] };
+      return { ...row };
     } catch (error) {
       throw new Error(error);
     }
